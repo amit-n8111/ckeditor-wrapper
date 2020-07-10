@@ -2,5 +2,164 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "ckeditor-lib": {
+      "projectType": "library",
+      "root": "projects/ckeditor-lib",
+      "sourceRoot": "projects/ckeditor-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ckeditor-lib/tsconfig.lib.json",
+            "project": "projects/ckeditor-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ckeditor-lib/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ckeditor-lib/src/test.ts",
+            "tsConfig": "projects/ckeditor-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/ckeditor-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ckeditor-lib/tsconfig.lib.json",
+              "projects/ckeditor-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ckeditor-playground": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/ckeditor-playground",
+      "sourceRoot": "projects/ckeditor-playground/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ckeditor-playground",
+            "index": "projects/ckeditor-playground/src/index.html",
+            "main": "projects/ckeditor-playground/src/main.ts",
+            "polyfills": "projects/ckeditor-playground/src/polyfills.ts",
+            "tsConfig": "projects/ckeditor-playground/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/ckeditor-playground/src/favicon.ico",
+              "projects/ckeditor-playground/src/assets"
+            ],
+            "styles": [
+              "projects/ckeditor-playground/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ckeditor-playground/src/environments/environment.ts",
+                  "with": "projects/ckeditor-playground/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ckeditor-playground:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ckeditor-playground:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ckeditor-playground:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ckeditor-playground/src/test.ts",
+            "polyfills": "projects/ckeditor-playground/src/polyfills.ts",
+            "tsConfig": "projects/ckeditor-playground/tsconfig.spec.json",
+            "karmaConfig": "projects/ckeditor-playground/karma.conf.js",
+            "assets": [
+              "projects/ckeditor-playground/src/favicon.ico",
+              "projects/ckeditor-playground/src/assets"
+            ],
+            "styles": [
+              "projects/ckeditor-playground/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ckeditor-playground/tsconfig.app.json",
+              "projects/ckeditor-playground/tsconfig.spec.json",
+              "projects/ckeditor-playground/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ckeditor-playground/e2e/protractor.conf.js",
+            "devServerTarget": "ckeditor-playground:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ckeditor-playground:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ckeditor-playground"
 }
