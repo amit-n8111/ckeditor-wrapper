@@ -11,11 +11,12 @@ import * as Editor from './build/ckeditor';
 export class CkeditorLibComponent implements OnInit {
 
   data = '<p>Amit</p>';
-  editor = Editor.ClassicEditor;
+  editor = Editor;
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log(Editor);
   }
 
 }

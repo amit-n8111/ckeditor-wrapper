@@ -11,6 +11,7 @@
 /node_modules
 
 /ckeditor5/node_modules
+/ckeditor5/build
 
 /projects/ckeditor-lib/src/lib/build
 
