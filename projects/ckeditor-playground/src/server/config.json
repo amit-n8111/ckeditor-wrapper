@@ -1,0 +1,7 @@
+{
+    "port": 8080,
+    "middlewares": [
+        "./projects/ckeditor-playground/src/server/middleware.js"
+    ],
+    "delay": 2000
+}
